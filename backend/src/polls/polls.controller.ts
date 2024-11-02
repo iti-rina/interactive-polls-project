@@ -16,7 +16,7 @@ export class PollsController {
 
   // POST /api/polls/:id/vote - Проголосовать за один из вариантов в опросе по его ID.
   @Post(':id/vote')
-  vote(@Body() vote: {}) {
+  vote(@Param('id') id: number, @Body() vote: {}) {
     return vote
   }
 
