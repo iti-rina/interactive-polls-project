@@ -1,4 +1,4 @@
-import { IsString, IsInt, ValidateNested, IsArray } from 'class-validator';
+import { IsString, IsArray, ArrayNotEmpty, ArrayMinSize, IsNotEmpty } from 'class-validator';
 import { Type } from 'class-transformer';
 
 class CreateAnswerDto {
@@ -11,7 +11,9 @@ export class CreatePollDto {
   text: string;
 
   @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => CreateAnswerDto)
-  answers: CreateAnswerDto[];
+  @ArrayNotEmpty()
+  @ArrayMinSize(2)
+  @IsString({ each: true })
+  @IsNotEmpty({ each: true })
+  answers: string[];
 }

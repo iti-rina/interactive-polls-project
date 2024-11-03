@@ -22,7 +22,7 @@ export class PollsService {
         total_votes: 0,
         answers: {
           create: pollDto.answers.map(answer => ({
-            text: answer.text,
+            text: answer,
             votes_for_answer: 0
           }))
         }
