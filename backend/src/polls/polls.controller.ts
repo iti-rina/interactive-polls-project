@@ -8,7 +8,7 @@ export class PollsController {
   // GET /api/polls - Получить список всех опросов.
   @Get()
   findAll() {
-    return []
+    return this.pollsService.findAll()
   }
 
   // POST /api/polls - Создать новый опрос.
