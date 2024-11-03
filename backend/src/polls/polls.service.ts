@@ -54,4 +54,10 @@ export class PollsService {
       data: { total_votes: totalVotes._sum.votes_for_answer || 0 },
     });
   }
+
+  delete(id: number) {
+    return this.prisma.poll.delete({
+      where: { id: id}
+    })
+  }
 }
