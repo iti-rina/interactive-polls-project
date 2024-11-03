@@ -20,8 +20,8 @@ export class PollsController {
 
   // POST /api/polls/:id/vote - Проголосовать за один из вариантов в опросе по его ID.
   @Post(':id/vote')
-  vote(@Param('id') id: number, @Body() vote: {}) {
-    return vote
+  vote(@Param('id', ParseIntPipe) id: number, @Body(ValidationPipe) voteDto: VoteDto) {
+    return this.pollsService.vote(id, voteDto)
   }
 
   // DELETE /api/polls/:id - Удалить опрос по его ID.
