@@ -1,7 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { PollsService } from './polls.service';
 
 @Controller('polls')
 export class PollsController {
+  constructor(private readonly pollsService: PollsService) {}
+
   // GET /api/polls - Получить список всех опросов.
   @Get()
   findAll() {
