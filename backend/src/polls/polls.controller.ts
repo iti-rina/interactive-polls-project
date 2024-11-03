@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, ValidationPipe, ParseIntPipe } from '@nestjs/common';
 import { PollsService } from './polls.service';
+import { CreatePollDto } from './dto/create-poll.dto';
 
 @Controller('api/polls')
 export class PollsController {
@@ -13,8 +14,8 @@ export class PollsController {
 
   // POST /api/polls - Создать новый опрос.
   @Post()
-  create(@Body() poll: {}) {
-    return poll
+  create(@Body(ValidationPipe) pollDto: CreatePollDto) {
+    return this.pollsService.createPoll(pollDto)
   }
 
   // POST /api/polls/:id/vote - Проголосовать за один из вариантов в опросе по его ID.
