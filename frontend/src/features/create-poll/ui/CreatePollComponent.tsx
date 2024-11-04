@@ -1,16 +1,30 @@
 import { FC } from 'react';
 import { Modal, Form, Input, Button, Space } from 'antd';
 import { PlusOutlined, MinusCircleOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { useMutation, useQueryClient } from 'react-query';
+import { createNewPoll } from '../api';
 import type { CreatePollValues } from '../../../shared';
 
 type CreatePollComponentProps = {
   isOpen: boolean;
-  onOk: (pollData: CreatePollValues) => void;
   onCancel: () => void;
 }
 
-const CreatePollComponent:FC<CreatePollComponentProps> = ({ isOpen, onOk, onCancel }) => {
+const CreatePollComponent:FC<CreatePollComponentProps> = ({ isOpen, onCancel }) => {
   const [form] = Form.useForm();
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(createNewPoll, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('polls');
+      onCancel();
+      form.resetFields();
+    },
+  });
+
+  const handleFinish = (pollData: CreatePollValues) => {
+    mutation.mutate(pollData);
+  };
 
   return (
     <Modal
@@ -21,7 +35,7 @@ const CreatePollComponent:FC<CreatePollComponentProps> = ({ isOpen, onOk, onCanc
         <Button key='cancel' onClick={onCancel}>
           Cancel
         </Button>,
-        <Button key='submit' type='primary' onClick={() => {console.log(form.getFieldsValue()); return form.submit()}}>
+        <Button key='submit' type='primary' onClick={() => form.submit()}>
           Submit
         </Button>,
       ]}
@@ -29,7 +43,7 @@ const CreatePollComponent:FC<CreatePollComponentProps> = ({ isOpen, onOk, onCanc
       <Form
         form={form}
         layout='vertical'
-        onFinish={onOk}
+        onFinish={handleFinish}
         initialValues={{
           answers: ['', ''],
         }}
