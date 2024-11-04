@@ -5,7 +5,9 @@ import PollItem from './PollItem';
 import { useQuery } from 'react-query';
 
 const PollList:FC = () => {
-  const { data: polls } = useQuery('polls', getAllPolls);
+  const { data: polls } = useQuery('polls', getAllPolls, {
+    refetchInterval: 5000
+  });
 
   return (
     <>
