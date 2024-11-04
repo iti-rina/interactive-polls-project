@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import { Modal, Form, Input, Button, Space } from 'antd';
 import { PlusOutlined, MinusCircleOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import type { CreatePollValues } from '../../../shared';
 
 type CreatePollComponentProps = {
   isOpen: boolean;
-  onOk: () => void;
+  onOk: (pollData: CreatePollValues) => void;
   onCancel: () => void;
 }
 
@@ -34,7 +35,7 @@ const CreatePollComponent:FC<CreatePollComponentProps> = ({ isOpen, onOk, onCanc
         }}
       >
         <Form.Item
-          name='question'
+          name='text'
           label='Question'
           rules={[{ required: true, message: 'Please enter title for the poll' }]}
         >
