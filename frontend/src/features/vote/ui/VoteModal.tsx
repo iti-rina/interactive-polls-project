@@ -1,5 +1,7 @@
 import { FC } from 'react';
 import { Modal, Form, Typography, Radio, Space, Button } from 'antd';
+import { useMutation, useQueryClient } from 'react-query';
+import { sendVote } from '../api';
 
 interface Answer {
   id: number;
@@ -15,24 +17,33 @@ interface PollData {
 interface PollVoteModalProps {
   visible: boolean;
   onCancel: () => void;
-  onVote: (pollId: number, answerId: number) => void;
   pollData: PollData;
 }
 
-const VoteModal: FC<PollVoteModalProps> = ({ visible, onCancel, onVote, pollData }) => {
+const VoteModal: FC<PollVoteModalProps> = ({ visible, onCancel, pollData }) => {
   const [form] = Form.useForm();
-
-  const sendVoteForm = () => {
-    const formData = form.getFieldsValue();
-    onVote(pollData.id, formData.answerId);
-    form.resetFields();
-    onCancel();
-  };
 
   const cancelVote = () => {
     form.resetFields();
     onCancel();
   }
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(({ pollId, answerId }: { pollId: number; answerId: number }) => sendVote(pollId, answerId),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('polls');
+        form.resetFields();
+        onCancel();
+      }
+    }
+  );
+
+  const sendVoteForm = () => {
+    const formData = form.getFieldsValue();
+    mutation.mutate({ pollId: pollData.id, answerId: formData.answerId });
+  };
 
   return (
     <Modal
@@ -53,7 +64,7 @@ const VoteModal: FC<PollVoteModalProps> = ({ visible, onCancel, onVote, pollData
           name='answerId'
           rules={[{ required: true, message: 'Please select an answer' }]}
         >
-          <Radio.Group>
+          <Radio.Group disabled={mutation.isLoading}>
             <Space direction='vertical'>
               {pollData.answers.map((answer) => (
                 <Radio key={answer.id} value={answer.id}>

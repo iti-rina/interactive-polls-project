@@ -2,7 +2,6 @@ import { FC, useState } from 'react';
 import { List, Button, Tooltip, Space } from 'antd';
 import { PieChartOutlined } from '@ant-design/icons';
 import type { PollValues } from '../../../shared';
-import { sendVote } from '../../vote/api';
 import { VoteModal } from '../../vote/ui';
 import { DeletePollButton } from '../../delete-poll/ui';
 import { SeeResultsComponent } from '../../see-results/ui';
@@ -19,11 +18,6 @@ const PollItem:FC<PollItemValues> = ({ pollData }) => {
   }
 
   const handleCancel = () => {
-    setVoteFormOpen(false);
-  };
-
-  const handleVote = (pollId: number, answerId: number) => {
-    sendVote(pollId, answerId, 'INCREMENT');
     setVoteFormOpen(false);
   };
 
@@ -60,15 +54,10 @@ const PollItem:FC<PollItemValues> = ({ pollData }) => {
 
           <DeletePollButton id={pollData.id} />
         </Space>
-
-
-
-
       </List.Item>
       <VoteModal
         visible={voteFormOpen}
         onCancel={handleCancel}
-        onVote={handleVote}
         pollData={pollData}
       />
       <SeeResultsComponent pollData={pollData} visible={seeResultsOpen} onCancel={handleSeeResultCancel}/>

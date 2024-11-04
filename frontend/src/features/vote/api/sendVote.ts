@@ -2,7 +2,7 @@ import axios from 'axios';
 
 type ActionValues = 'INCREMENT' | 'DECREMENT';
 
-export default async function sendVote(id: number, answerId: number, actionType: ActionValues) {
+export default async function sendVote(id: number, answerId: number, actionType: ActionValues = 'INCREMENT') {
   const API_BASE_URL = import.meta.env.VITE_API_URL;
   try {
     return await axios({
