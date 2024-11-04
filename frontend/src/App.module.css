@@ -1,0 +1,8 @@
+.wrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.floatBtn {
+  margin-right: 120px !important;
+}
