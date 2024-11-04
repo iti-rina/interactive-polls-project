@@ -12,7 +12,7 @@ const SeeResultsComponent:FC<SeeResultsProps> = ({ visible, pollData, onCancel }
     const percent = calculatePercentage(pollData.total_votes, answer.votes_for_answer);
     return (
       <div key={answer.id}>
-        <Typography.Text>{answer.text}</Typography.Text>
+        <Typography.Text>{answer.text}: {answer.votes_for_answer}</Typography.Text>
         <Progress percent={percent} />
       </div>
     );
