@@ -5,6 +5,7 @@ import type { PollValues } from '../../../shared';
 import { VoteModal } from '../../vote/ui';
 import { DeletePollButton } from '../../delete-poll/ui';
 import { SeeResultsComponent } from '../../see-results/ui';
+import styles from './PollItme.module.css';
 
 type PollItemValues = {
   pollData: PollValues;
@@ -49,7 +50,7 @@ const PollItem:FC<PollItemValues> = ({ pollData }) => {
           </Button>
 
           <Tooltip title='View results'>
-            <Button onClick={() => setSeeResultsOpen(true)}><PieChartOutlined /></Button>
+            <Button onClick={() => setSeeResultsOpen(true)} className={styles.seeResultsBtn}><PieChartOutlined /></Button>
           </Tooltip>
 
           <DeletePollButton id={pollData.id} />

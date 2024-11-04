@@ -1,0 +1,8 @@
+.seeResultsBtn {
+  color: #52c41a;
+}
+
+.seeResultsBtn:hover {
+  border-color: #52c41a !important;
+  color: #52c41a !important;
+}

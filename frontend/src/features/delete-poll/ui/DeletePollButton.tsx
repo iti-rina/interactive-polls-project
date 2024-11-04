@@ -3,6 +3,7 @@ import { DeleteOutlined } from '@ant-design/icons';
 import { deletePoll } from '../api';
 import { FC } from 'react';
 import { useQueryClient, useMutation } from 'react-query';
+import styles from './DeletePollButton.module.css'
 
 type DeletePollButtonProps = {
   id: number
@@ -29,7 +30,7 @@ const DeletePollButton:FC<DeletePollButtonProps> = ({ id }) => {
       cancelText='No'
       onConfirm={handleDelete}
     >
-      <Button>
+      <Button className={styles.btn}>
         <DeleteOutlined />
       </Button>
     </Popconfirm>

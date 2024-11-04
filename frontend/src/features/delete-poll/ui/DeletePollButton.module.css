@@ -1,0 +1,7 @@
+.btn {
+  color: #eb2f96;
+}
+.btn:hover {
+  border-color: #eb2f96 !important;
+  color: #eb2f96 !important;
+}
