@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, Popconfirm } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { deletePoll } from '../api';
 import { FC } from 'react';
@@ -13,10 +13,18 @@ const DeletePollButton:FC<DeletePollButtonProps> = ({ id }) => {
   }
 
   return (
-    <Button onClick={handleDelete}>
-      <DeleteOutlined />
-      Delete poll
-    </Button>
+    <Popconfirm
+      placement="bottomRight"
+      title='Are you sure to delete this poll?'
+      okText='Yes'
+      cancelText='No'
+      onConfirm={handleDelete}
+    >
+      <Button>
+        <DeleteOutlined />
+        Delete poll
+      </Button>
+    </Popconfirm>
   );
 }
 
