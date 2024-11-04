@@ -1,16 +1,11 @@
 import { List } from 'antd';
-import { useEffect, useState } from 'react';
+import { FC } from 'react';
 import { getAllPolls } from '../api';
 import PollItem from './PollItem';
-import type { PollValues } from '../../../shared';
+import { useQuery } from 'react-query';
 
-const PollList = () => {
-  const [polls, setPolls] = useState<PollValues[]>([]);
-
-  useEffect(() => {
-    getAllPolls().then(data => setPolls(data))
-  }, [])
-
+const PollList:FC = () => {
+  const { data: polls } = useQuery('polls', getAllPolls);
 
   return (
     <>
