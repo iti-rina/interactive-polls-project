@@ -47,10 +47,9 @@ const CreatePollComponent:FC<CreatePollComponentProps> = ({ isOpen, onOk, onCanc
           {(fields, { add, remove }) => (
             <>
               {fields.map((field, index) => (
-                <Space key={field.key} direction='vertical' size='middle' style={{ display: 'flex' }}>
+                <Space key={index} direction='vertical' size='middle' style={{ display: 'flex' }}>
                   <div style={{display: 'flex', justifyContent: 'space-between', gap: '8px', alignItems: 'baseline'}}>
                   <Form.Item
-                    {...field}
                     name={[field.name]}
                     label={index === 0 ? 'Answers' : ''}
                     rules={[{ required: true, message: 'Please fill in or delete the field' }]}
