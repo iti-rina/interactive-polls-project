@@ -28,6 +28,9 @@ const PollItem:FC<PollItemValues> = ({ pollData }) => {
   };
 
   const [seeResultsOpen, setSeeResultsOpen] = useState(false);
+  const handleSeeResultCancel = () => {
+    setSeeResultsOpen(false);
+  }
 
   let stringVotesCount = '';
   if (pollData.total_votes === 0) {
@@ -59,7 +62,7 @@ const PollItem:FC<PollItemValues> = ({ pollData }) => {
         onVote={handleVote}
         pollData={pollData}
       />
-      <SeeResultsComponent pollData={pollData} visible={seeResultsOpen}/>
+      <SeeResultsComponent pollData={pollData} visible={seeResultsOpen} onCancel={handleSeeResultCancel}/>
     </>
   );
 }
