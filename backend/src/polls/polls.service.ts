@@ -11,6 +11,9 @@ export class PollsService {
     return this.prisma.poll.findMany({
       include: {
         answers: true
+      },
+      orderBy: {
+        id: 'desc',
       }
     })
   }
