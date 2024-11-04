@@ -4,13 +4,14 @@ import { FC } from 'react';
 
 type SeeResultsProps = {
   visible: boolean;
-  pollData: PollValues
+  pollData: PollValues;
+  onCancel: () => void;
 }
-const SeeResultsComponent:FC<SeeResultsProps> = ({ visible, pollData }) => {
+const SeeResultsComponent:FC<SeeResultsProps> = ({ visible, pollData, onCancel }) => {
   const graphics = pollData.answers.map(answer => {
     const percent = calculatePercentage(pollData.total_votes, answer.votes_for_answer);
     return (
-      <div>
+      <div key={answer.id}>
         <Typography.Text>{answer.text}</Typography.Text>
         <Progress percent={percent} />
       </div>
@@ -19,7 +20,10 @@ const SeeResultsComponent:FC<SeeResultsProps> = ({ visible, pollData }) => {
   return (
     <Modal
       open={visible}
+      onCancel={onCancel}
+      footer={null}
     >
+      <Typography.Title>{pollData.text}</Typography.Title>
       {graphics}
     </Modal>
   );
