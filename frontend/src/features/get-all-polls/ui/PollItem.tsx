@@ -1,10 +1,11 @@
 import { FC, useState } from 'react';
-import { List, Button } from 'antd';
-import { SelectOutlined } from '@ant-design/icons';
+import { List, Button, Tooltip } from 'antd';
+import { SelectOutlined, PieChartOutlined } from '@ant-design/icons';
 import type { PollValues } from '../../../shared';
 import { sendVote } from '../../vote/api';
 import { VoteModal } from '../../vote/ui';
 import { DeletePollButton } from '../../delete-poll/ui';
+import { SeeResultsComponent } from '../../see-results/ui';
 
 type PollItemValues = {
   pollData: PollValues;
@@ -26,6 +27,8 @@ const PollItem:FC<PollItemValues> = ({ pollData }) => {
     setVoteFormOpen(false);
   };
 
+  const [seeResultsOpen, setSeeResultsOpen] = useState(false);
+
   let stringVotesCount = '';
   if (pollData.total_votes === 0) {
     stringVotesCount = 'Your vote will be the first';
@@ -45,6 +48,9 @@ const PollItem:FC<PollItemValues> = ({ pollData }) => {
           title={pollData.text}
           description={stringVotesCount}
         />
+        <Tooltip title='View results'>
+          <Button onClick={() => setSeeResultsOpen(true)}><PieChartOutlined /></Button>
+        </Tooltip>
         <DeletePollButton id={pollData.id}/>
       </List.Item>
       <VoteModal
@@ -53,6 +59,7 @@ const PollItem:FC<PollItemValues> = ({ pollData }) => {
         onVote={handleVote}
         pollData={pollData}
       />
+      <SeeResultsComponent pollData={pollData} visible={seeResultsOpen}/>
     </>
   );
 }
