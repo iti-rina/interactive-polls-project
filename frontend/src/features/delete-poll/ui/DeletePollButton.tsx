@@ -22,7 +22,6 @@ const DeletePollButton:FC<DeletePollButtonProps> = ({ id }) => {
     >
       <Button>
         <DeleteOutlined />
-        Delete poll
       </Button>
     </Popconfirm>
   );
