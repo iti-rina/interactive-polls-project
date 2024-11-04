@@ -8,6 +8,9 @@ export default async function sendVote(id: number, answerId: number, actionType:
     return await axios({
       method: 'post',
       url: `${API_BASE_URL}/${id}/vote`,
+      headers: {
+        'Content-Type': 'application/json'
+      },
       data: JSON.stringify({
         answer_id: answerId,
         action: actionType

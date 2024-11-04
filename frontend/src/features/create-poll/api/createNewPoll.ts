@@ -13,6 +13,9 @@ export default async function createNewPoll(pollData: CreatePollValues): Promise
     return await axios({
       method: 'post',
       url: API_BASE_URL,
+      headers: {
+        'Content-Type': 'application/json'
+      },
       data: JSON.stringify(pollData)
     });
   } catch(error) {
