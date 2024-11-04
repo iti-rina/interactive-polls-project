@@ -4,6 +4,7 @@ import { SelectOutlined } from '@ant-design/icons';
 import type { PollValues } from '../../../shared';
 import { sendVote } from '../../vote/api';
 import { VoteModal } from '../../vote/ui';
+import { DeletePollButton } from '../../delete-poll/ui';
 
 type PollItemValues = {
   pollData: PollValues;
@@ -44,6 +45,7 @@ const PollItem:FC<PollItemValues> = ({ pollData }) => {
           title={pollData.text}
           description={stringVotesCount}
         />
+        <DeletePollButton id={pollData.id}/>
       </List.Item>
       <VoteModal
         visible={voteFormOpen}
