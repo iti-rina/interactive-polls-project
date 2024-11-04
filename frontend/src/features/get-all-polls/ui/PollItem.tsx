@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
-import { List, Button, Tooltip } from 'antd';
-import { SelectOutlined, PieChartOutlined } from '@ant-design/icons';
+import { List, Button, Tooltip, Space } from 'antd';
+import { PieChartOutlined } from '@ant-design/icons';
 import type { PollValues } from '../../../shared';
 import { sendVote } from '../../vote/api';
 import { VoteModal } from '../../vote/ui';
@@ -14,7 +14,7 @@ type PollItemValues = {
 const PollItem:FC<PollItemValues> = ({ pollData }) => {
   const [voteFormOpen, setVoteFormOpen] = useState(false);
   
-  const handleClickOnItem = () => {
+  const handleOpenVoteForm = () => {
     setVoteFormOpen(true);
   }
 
@@ -43,18 +43,27 @@ const PollItem:FC<PollItemValues> = ({ pollData }) => {
 
   return (
     <>
-      <List.Item
-        actions={[<Button ><SelectOutlined /></Button>]}
-        onClick={handleClickOnItem}
-      >
+      <List.Item>
         <List.Item.Meta 
           title={pollData.text}
           description={stringVotesCount}
         />
-        <Tooltip title='View results'>
-          <Button onClick={() => setSeeResultsOpen(true)}><PieChartOutlined /></Button>
-        </Tooltip>
-        <DeletePollButton id={pollData.id}/>
+
+        <Space>
+          <Button onClick={handleOpenVoteForm}>
+            Take part in a poll
+          </Button>
+
+          <Tooltip title='View results'>
+            <Button onClick={() => setSeeResultsOpen(true)}><PieChartOutlined /></Button>
+          </Tooltip>
+
+          <DeletePollButton id={pollData.id} />
+        </Space>
+
+
+
+
       </List.Item>
       <VoteModal
         visible={voteFormOpen}
